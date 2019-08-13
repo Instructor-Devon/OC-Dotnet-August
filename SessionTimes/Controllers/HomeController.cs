@@ -40,19 +40,19 @@ namespace SessionTimes.Controllers
             return View();
         }
         [HttpGet("/click")]
-        public RedirectToActionResult Click()
+        public IActionResult Click()
         {
             // we want to increment score by 1
             // get the score from session (in a var)
             // NULL CHECK
             if(SessionScore == null)
             {
-                return RedirectToAction("Index");
+                return Json(0);
             }
             // increment variable
             SessionScore++;
             // store it back
-            return RedirectToAction("Index");
+            return Json(SessionScore);
         }
         [HttpGet("reset")]
         public IActionResult Reset()
