@@ -56,6 +56,7 @@ namespace DBIntro
             {
                 routes.MapRoute(
                     name: "default",
+                    // Home/Method
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
         }

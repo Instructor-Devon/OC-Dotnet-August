@@ -10,18 +10,35 @@ namespace DBIntro.Controllers
 {
     public class HomeController : Controller
     {
+        private List<Dictionary<string, object>> AllUsers
+        {
+            get
+            {
+                return DbConnector.Query("SELECT * FROM users;");
+            }
+        }
         public IActionResult Index()
         {
-            List<Dictionary<string, object>> result = DbConnector.Query("SELECT * FROM users");
-            return View(result);
+            return View();
         }
         [HttpPost("create")]
         public IActionResult Create(string first_name, string last_name)
         {
             // Chief O'Brian
+            // "Obrian'); DROP TABLE users;
             string insert = $"INSERT INTO users (first_name, last_name) VALUES ('{first_name}', '{last_name}');";
             DbConnector.Execute(insert);
-            return RedirectToAction("Index");
+            return RedirectToAction("Users");
+        }
+        [HttpGet("/click")]
+        public IActionResult Click()
+        {
+            return PartialView("UserPartial", AllUsers);
+        }
+        [HttpGet("users")]
+        public IActionResult Users()
+        {
+            return PartialView("UserPartial", AllUsers);       
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -2,8 +2,10 @@
     ViewData["Title"] = "Home Page";
 }
 @model List<Dictionary<string,object>>
+<button id="clicker">Click Me</button>
+<div id="content"></div>
 <h2>Add a User</h2>
-<form action="/create" method="post">
+<form id="user-form" action="/lol" method="post">
     <input type="text" name="first_name" placeholder="First Name:">
     <input type="text" name="last_name" placeholder="Last Name:">
     <button>Submit</button>
@@ -17,15 +19,6 @@
             <th>Created On</th>
         </tr>
     </thead>
-    <tbody>
-    @foreach(var user in Model)
-    {
-        DateTime date = Convert.ToDateTime(user["created_at"]);
-        <tr>
-            <td>@user["first_name"]</td>
-            <td>@user["last_name"]</td>
-            <td>@date.ToString("D")</td>
-        </tr>
-    }
+    <tbody id="table-body">
     </tbody>
 </table>

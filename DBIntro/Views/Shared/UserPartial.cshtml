@@ -1,0 +1,10 @@
+@model List<Dictionary<string, object>>
+@foreach(var user in Model)
+{
+    DateTime date = Convert.ToDateTime(user["created_at"]);
+    <tr>
+        <td>@user["first_name"]</td>
+        <td>@user["last_name"]</td>
+        <td>@date.ToString("D")</td>
+    </tr>
+}
