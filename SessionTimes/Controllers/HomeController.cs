@@ -25,6 +25,7 @@ namespace SessionTimes.Controllers
         [HttpGet("")]
         public IActionResult Index()
         {
+            var friends = DbConnector.Query("SELECT * FROM friends;");
             // First time user experience
             // check to see if we have "score" in session
             int? sessionScore = HttpContext.Session.GetInt32("score");
@@ -57,9 +58,7 @@ namespace SessionTimes.Controllers
         [HttpGet("reset")]
         public IActionResult Reset()
         {
-            SessionScore = 0;
             HttpContext.Session.Clear();
-            HttpContext.Session.Remove("score");
             return RedirectToAction("Index");
         }
     }
