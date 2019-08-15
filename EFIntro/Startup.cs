@@ -30,6 +30,7 @@ namespace EFIntro
 
             services.AddDbContext<MyContext>(options => 
                 options.UseMySql(Configuration["DBInfo:ConnectionString"]));
+                
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
