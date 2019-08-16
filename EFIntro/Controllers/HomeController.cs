@@ -38,6 +38,8 @@ namespace EFIntro.Controllers
         [HttpPost("create")]
         public IActionResult Create(User newUser)
         {
+            
+
             dbContext.Users.Add(newUser);
             dbContext.SaveChanges();
             return RedirectToAction("Index");
