@@ -1,0 +1,5 @@
+﻿.form-group > span {
+  display: block;
+  font-weight: bold;
+  color: red;
+}

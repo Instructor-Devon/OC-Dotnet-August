@@ -1,0 +1,21 @@
+@model List<Post>
+<h2>Add Post</h2>
+@{
+    Post newPost = new Post();
+}
+<partial name="NewPost" view-data="ViewData" model="@newPost"/>
+<h2>Here are all my posts!</h2>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Content</th>
+            <th>Author</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach(var post in Model)
+    {
+        <partial name="PostPartial" model="@post"/>
+    }
+    </tbody>
+</table>
