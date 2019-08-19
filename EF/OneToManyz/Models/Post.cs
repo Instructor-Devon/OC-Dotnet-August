@@ -13,6 +13,7 @@ namespace OneToManyz.Models
         [Column("user_id")]
         public int UserId {get;set;}
         [Column("content")]
+        [Required]
         public string Content {get;set;}
         [Column("created_at")]
         public DateTime CreatedAt {get;set;} = DateTime.Now;

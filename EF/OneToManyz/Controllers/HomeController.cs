@@ -45,7 +45,7 @@ namespace OneToManyz.Controllers
                 // We are ready to add user to db
                 dbContext.Users.Add(newUser);
                 dbContext.SaveChanges();
-                return RedirectToAction("Success");
+                return RedirectToAction("Index", "Posts");
             }
             return View("Index");
         }
@@ -58,13 +58,7 @@ namespace OneToManyz.Controllers
             return View(user);
             
         }
-        [HttpGet("posts/new")]
-        public IActionResult NewPost()
-        {
-            var users = dbContext.Users.ToList();
-            ViewBag.Users = users;
-            return View();
-        }
+        
         [HttpPost("login")]
         public IActionResult Login(LogRegViewModel model)
         {
@@ -93,7 +87,7 @@ namespace OneToManyz.Controllers
                 HttpContext.Session.SetInt32("long", (int)MAX_LONG);
 
                 HttpContext.Session.SetInt32("UserId", check.UserId);
-                return RedirectToAction("Success");
+                return RedirectToAction("Index", "Posts");
             }
             return View("Index");
 
@@ -103,13 +97,6 @@ namespace OneToManyz.Controllers
         {
             return "S U C C E S S";
         }
-        [HttpGet("posts")]
-        public IActionResult AllPosts()
-        {
-            var posts = dbContext.Posts
-                .Include(p => p.Creator)
-                .ToList();
-            return View(posts);
-        }
+        
     }
 }
