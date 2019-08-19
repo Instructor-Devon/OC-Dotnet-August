@@ -17,7 +17,7 @@
         </tr>
     </thead>
     <tbody>
-    @foreach(var user in Model)
+    @foreach(var user in ViewBag.Users)
     {
         <tr>
             <td><a asp-action="Show" asp-route-userId="@user.UserId">@user.FirstName</a></td>

@@ -19,9 +19,6 @@ namespace EFIntro.Controllers
         [HttpGet("")]
         public IActionResult Index()
         {
-            // SELECT * FROM Users
-            var users = dbContext.Users.ToList();
-
             // SELECT * FROM Users WHERE UserId = 1;
             //                                            input   return value
             User someUser = dbContext.Users.FirstOrDefault(user => user.UserId == 1);
@@ -30,7 +27,7 @@ namespace EFIntro.Controllers
                 .OrderByDescending(user => user.CreatedAt)
                 .ToList();
     
-            return View(users);
+            return View(result);
         }
         [HttpGet("new")]
         public IActionResult New() => View();
