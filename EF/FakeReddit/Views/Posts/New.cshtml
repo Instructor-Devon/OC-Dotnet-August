@@ -1,0 +1,11 @@
+@model Post
+<h2>Add a Post</h2>
+<form asp-action="CreatePost" method="post">
+    <div class="form-group">
+        <span asp-validation-for="Content"></span>
+        <label asp-for="Content"></label>
+        <input class="form-control" asp-for="Content">
+    </div>
+    <input type="hidden" asp-for="UserId" value="@ViewBag.UserId">
+    <button>Register</button>
+</form>

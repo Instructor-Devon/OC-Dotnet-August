@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace ManyToManyz
+namespace FakeReddit
 {
     public class LogUser
     {

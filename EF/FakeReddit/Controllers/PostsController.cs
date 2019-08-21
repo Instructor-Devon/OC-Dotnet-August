@@ -1,14 +1,14 @@
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ManyToManyz.Models;
+using FakeReddit.Models;
 using Microsoft.AspNetCore.Http;
-using ManyToManyz.Filters;
+using FakeReddit.Filters;
 
-namespace ManyToManyz.Controllers
+namespace FakeReddit.Controllers
 {
     [Route("posts")]
-    [LoggedIn]
+    // localhost:5000/posts
     public class PostsController : Controller
     {
         private int? SessionUser
@@ -30,7 +30,7 @@ namespace ManyToManyz.Controllers
                 // ThenInclude() to get user name from user_id
                     .ThenInclude(v => v.Voter)
                 .ToList();
-            ViewBag.Users = dbContext.Users.ToList();
+            ViewBag.UserId = SessionUser;
             return View(posts);
         }
         [HttpGet("new")]
@@ -49,8 +49,18 @@ namespace ManyToManyz.Controllers
                 dbContext.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Users = dbContext.Users.ToList();
+            ViewBag.UserId = SessionUser;
             return View("Index", dbContext.Posts.ToList());
         }
+        [HttpGet("delete/{postId}")]
+        public IActionResult Delete(int postId)
+        {
+            // query for thing
+            Post toDel = dbContext.Posts.FirstOrDefault(p => p.PostId == postId);
+            dbContext.Posts.Remove(toDel);
+            dbContext.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        
     }
 }

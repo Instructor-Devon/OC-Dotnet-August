@@ -1,0 +1,23 @@
+@model User
+<h1>@Model.FullName's profile</h1>
+<h3>Posts</h3>
+@foreach(var post in Model.CreatedPosts)
+{
+    <div class="post">
+        <blockquote>"@post.Content"</blockquote>
+        <h3>Likers:</h3>
+        <ul>
+        @foreach(var liker in post.Votes.Where(v => v.IsUpvote))
+        {
+            <li>@liker.Voter.FullName</li>
+        }
+        </ul>
+        <h3>Haters:</h3>
+        <ul>
+        @foreach(var hater in post.Votes.Where(v => !v.IsUpvote))
+        {
+            <li>@hater.Voter.FullName</li>
+        }
+        </ul>
+    </div>
+}

@@ -4,12 +4,12 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using ManyToManyz.Models;
+using FakeReddit.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
-namespace ManyToManyz.Controllers
+namespace FakeReddit.Controllers
 {
     public class HomeController : Controller
     {
@@ -61,7 +61,10 @@ namespace ManyToManyz.Controllers
         public IActionResult Show(int id)
         {
             // grab a user, inlcude their posts
-            var user = dbContext.Users.Include(u => u.CreatedPosts)
+            var user = dbContext.Users
+                .Include(u => u.CreatedPosts)
+                    .ThenInclude(p => p.Votes)
+                    .ThenInclude(v => v.Voter)
                 .FirstOrDefault(u => u.UserId == id);
             return View(user);
             

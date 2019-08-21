@@ -11,6 +11,7 @@
             <th>Author</th>
             <th>Total Votes</th>
             <th>Last to Vote</th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
@@ -25,6 +26,10 @@
             <td>@post.Creator.FullName</td>
             <td>@post.Votes.Count</td>
             <td>@lastToVote</td>
+            <td>
+                <a href="/posts/@post.PostId/vote/@true">Upvote</a> |
+                <a href="/posts/@post.PostId/vote/@false">Downvote</a>            
+            </td>
         </tr>
     }
     </tbody>
