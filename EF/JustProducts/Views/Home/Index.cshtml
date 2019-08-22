@@ -1,0 +1,11 @@
+﻿@model List<Product>
+@{
+    Product newProduct = new Product();
+}
+<h2>Hey welcome to my store</h2>
+<h5>Existing Products:</h5>
+@foreach (var prod in Model)
+{
+    <p>@prod.Name (@prod.Price).  "@prod.Description"</p>
+}
+<partial name="ProductPartial" model="newProduct"/>

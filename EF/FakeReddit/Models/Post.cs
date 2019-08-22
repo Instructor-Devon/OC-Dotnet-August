@@ -13,7 +13,7 @@ namespace FakeReddit.Models
         [Column("id")]
         public int PostId {get;set;}
         [Column("user_id")]
-        public int UserId {get;set;}
+        public int CreatorId {get;set;}
         [Column("content")]
         [Required]
         public string Content {get;set;}
@@ -21,15 +21,8 @@ namespace FakeReddit.Models
         public DateTime CreatedAt {get;set;} = DateTime.Now;
         [Column("updated_at")]
         public DateTime UpdatedAt {get;set;} = DateTime.Now;
-        public int Karma
-        {
-            get
-            {
-                return this.Votes.Count(v => v.IsUpvote) - this.Votes.Count(v => !v.IsUpvote);
-            }
-        }
 
-        // Navigation Properties    
+        // Navigation Properties
         public User Creator {get;set;}
         public List<Vote> Votes {get;set;}
     }

@@ -1,0 +1,26 @@
+@model ProductsViewModel
+<h2>Hey welcome to my store</h2>
+<h5>Existing Products:</h5>
+@foreach (var prod in Model.AllProducts)
+{
+    <p>@prod.Name (@prod.Price).  "@prod.Description"</p>
+}
+<h5>Add a Product</h5>
+<form asp-action="CreateTwo" method="post">
+    <div class="form-group">
+        <span asp-validation-for="NewProduct.Name"></span>
+        <label asp-for="NewProduct.Name"></label>
+        <input asp-for="NewProduct.Name">
+    </div>
+    <div class="form-group">
+        <span asp-validation-for="NewProduct.Description"></span>
+        <label asp-for="NewProduct.Description"></label>
+        <input asp-for="NewProduct.Description">
+    </div>
+    <div class="form-group">
+        <span asp-validation-for="NewProduct.Price"></span>
+        <label asp-for="NewProduct.Price"></label>
+        <input asp-for="NewProduct.Price">
+    </div>
+    <button>Add Product</button>
+</form>
