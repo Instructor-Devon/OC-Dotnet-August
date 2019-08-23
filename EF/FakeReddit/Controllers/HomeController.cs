@@ -16,8 +16,9 @@ namespace FakeReddit.Controllers
         public static string USER_KEY = "UserId";
         private int? SessionUser
         {
-            get { return HttpContext.Session.GetInt32(USER_KEY); }
-            set { HttpContext.Session.SetInt32(USER_KEY, (int)value); }
+            get { return HttpContext.Session.GetInt32("UserId"); }
+            set { HttpContext.Session.SetInt32("UserId", (int)value); }
+            // SessionUser = 1;
         }
         private MyContext dbContext;
         public HomeController(MyContext context)

@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using FakeReddit.Models;
 using Microsoft.AspNetCore.Http;
 using FakeReddit.Filters;
+using System.Collections.Generic;
 
 namespace FakeReddit.Controllers
 {
@@ -16,6 +17,18 @@ namespace FakeReddit.Controllers
             get { return HttpContext.Session.GetInt32("UserId"); }
             set { HttpContext.Session.SetInt32("UserId", (int)value); }
         }
+        private List<Post> posts
+        {
+            get
+            {
+                return dbContext.Posts
+                    .Include(p => p.Creator)
+                    .Include(p => p.Votes)
+                    // ThenInclude() to get user name from user_id
+                        .ThenInclude(v => v.Voter)
+                    .ToList();
+            }
+        }
         private MyContext dbContext;
         public PostsController(MyContext context)
         {
@@ -24,12 +37,6 @@ namespace FakeReddit.Controllers
         [HttpGet("")]
         public IActionResult Index()
         {
-            var posts = dbContext.Posts
-                .Include(p => p.Creator)
-                .Include(p => p.Votes)
-                // ThenInclude() to get user name from user_id
-                    .ThenInclude(v => v.Voter)
-                .ToList();
             ViewBag.UserId = SessionUser;
             return View(posts);
         }
@@ -50,7 +57,7 @@ namespace FakeReddit.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.UserId = SessionUser;
-            return View("Index", dbContext.Posts.ToList());
+            return View("Index", posts);
         }
         [HttpGet("delete/{postId}")]
         public IActionResult Delete(int postId)
